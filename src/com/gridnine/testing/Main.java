@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello");
+        //System.out.println("Hello");
         List<Flight> flights = FlightBuilder.createFlights();
-        System.out.println(flights.size());
+        //System.out.println(flights.size());
 
         System.out.println("---------excludePastArrival---------");
         for (Flight flight : flights) {
