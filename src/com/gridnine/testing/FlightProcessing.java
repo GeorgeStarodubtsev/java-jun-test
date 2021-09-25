@@ -7,10 +7,6 @@ import java.util.List;
 public abstract class FlightProcessing {
 
 
-
-    public FlightProcessing() {
-    }
-
     public static void showInfo(Flight flight) {
                 System.out.println(flight.toString());
 

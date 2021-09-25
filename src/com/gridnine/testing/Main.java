@@ -1,13 +1,19 @@
 package com.gridnine.testing;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         //System.out.println("Hello");
         List<Flight> flights = FlightBuilder.createFlights();
-        //System.out.println(flights.size());
+        FlightProcessingMeth excludePastArrival = FlightProcessingMeth.EPA;
+        FlightProcessingMeth excludeDepBeforeArr = FlightProcessingMeth.EDBA;
+        FlightProcessingMeth excludeMoreThenTHG = FlightProcessingMeth.EMTT;
+
+
+
 
         System.out.println("---------excludePastArrival---------");
         for (Flight flight : flights) {
@@ -32,6 +38,9 @@ public class Main {
 
         System.out.println("------------------");
         System.out.println("------------------");
+
+        System.out.println("---------excludePastArrival---------");
+        FlightListProcessing.processingFlightList(flights, excludeDepBeforeArr, excludePastArrival, excludeMoreThenTHG);
 
     }
 }
