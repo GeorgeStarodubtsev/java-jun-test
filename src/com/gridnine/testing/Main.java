@@ -1,45 +1,29 @@
 package com.gridnine.testing;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Hello");
+
         List<Flight> flights = FlightBuilder.createFlights();
         FlightProcessingMeth excludePastArrival = FlightProcessingMeth.EPA;
         FlightProcessingMeth excludeDepBeforeArr = FlightProcessingMeth.EDBA;
         FlightProcessingMeth excludeMoreThenTHG = FlightProcessingMeth.EMTT;
 
 
-
-
         System.out.println("---------excludePastArrival---------");
-        for (Flight flight : flights) {
-            if (FlightProcessing.excludePastArrival(flight))
-                System.out.println(flight.toString());
-
-        }
+        FlightListProcessing.processingFlightList(flights, excludePastArrival);
 
         System.out.println("--------- excludeDepBeforeArr ---------");
-        for (Flight flight : flights) {
-            if (FlightProcessing.excludeDepBeforeArr(flight))
-                System.out.println(flight.toString());
-
-        }
+        FlightListProcessing.processingFlightList(flights, excludeDepBeforeArr);
 
         System.out.println("-------- excludeMoreThenTHG ----------");
-        for (Flight flight : flights) {
-            if (FlightProcessing.excludeMoreThenTHG(flight))
-                System.out.println(flight.toString());
-
-        }
+        FlightListProcessing.processingFlightList(flights, excludeMoreThenTHG);
 
         System.out.println("------------------");
-        System.out.println("------------------");
 
-        System.out.println("---------excludePastArrival---------");
+        System.out.println("--------- test variable-length arguments method---------");
+        System.out.println("--------- with all methods ---------");
         FlightListProcessing.processingFlightList(flights, excludeDepBeforeArr, excludePastArrival, excludeMoreThenTHG);
 
     }

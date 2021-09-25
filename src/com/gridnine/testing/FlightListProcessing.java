@@ -13,7 +13,7 @@ public abstract class FlightListProcessing {
         boolean useEPA = false;
         boolean useEDBA= false;
         boolean useEMTT = false;
-        boolean printFlight = true;
+        boolean printFlight;
 
         for (FlightProcessingMeth met:method) {
             switch (met){
@@ -32,8 +32,11 @@ public abstract class FlightListProcessing {
         }
 
         for (Flight flight : flights) {
+
+            printFlight = true;
+
             if(useEPA)
-                printFlight = printFlight & FlightProcessing.excludePastArrival(flight);
+                printFlight = FlightProcessing.excludePastArrival(flight);
 
             if(useEDBA)
                     printFlight = printFlight & FlightProcessing.excludeDepBeforeArr(flight);

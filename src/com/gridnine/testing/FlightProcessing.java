@@ -14,10 +14,12 @@ public abstract class FlightProcessing {
 
 
     public static boolean excludePastArrival(Flight flight) {
-        if(LocalDateTime.now().isBefore(flight.getSegments().get(0).getDepartureDate())){
-            return true;
-        } else
-            return false;
+        // исправить, возможно в задании имелось ввиду проверить каждый сегмент
+        for(int i = 0; i < flight.getSegments().size(); i++) {
+            if(LocalDateTime.now().isAfter(flight.getSegments().get(i).getDepartureDate()))
+                return false;
+        }
+        return true;
     }
 
     public static boolean excludeDepBeforeArr(Flight flight) {
