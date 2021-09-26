@@ -6,25 +6,25 @@ public class Main {
     public static void main(String[] args) {
 
         List<Flight> flights = FlightBuilder.createFlights();
-        FlightProcessingMeth excludePastArrival = FlightProcessingMeth.EPA;
-        FlightProcessingMeth excludeDepBeforeArr = FlightProcessingMeth.EDBA;
-        FlightProcessingMeth excludeMoreThenTHG = FlightProcessingMeth.EMTT;
+        FlightProcessorMeth excludePastArrival = FlightProcessorMeth.EPA;
+        FlightProcessorMeth excludeDepBeforeArr = FlightProcessorMeth.EDBA;
+        FlightProcessorMeth excludeMoreThenTHG = FlightProcessorMeth.EMTT;
 
 
         System.out.println("---------excludePastArrival---------");
-        FlightListProcessing.processingFlightList(flights, excludePastArrival);
+        FlightListProcessor.processorFlightList(flights, excludePastArrival);
 
         System.out.println("--------- excludeDepBeforeArr ---------");
-        FlightListProcessing.processingFlightList(flights, excludeDepBeforeArr);
+        FlightListProcessor.processorFlightList(flights, excludeDepBeforeArr);
 
         System.out.println("-------- excludeMoreThenTHG ----------");
-        FlightListProcessing.processingFlightList(flights, excludeMoreThenTHG);
+        FlightListProcessor.processorFlightList(flights, excludeMoreThenTHG);
 
         System.out.println("------------------");
 
         System.out.println("--------- test variable-length arguments method---------");
         System.out.println("--------- with all methods ---------");
-        FlightListProcessing.processingFlightList(flights, excludeDepBeforeArr, excludePastArrival, excludeMoreThenTHG);
+        FlightListProcessor.processorFlightList(flights, excludeDepBeforeArr, excludePastArrival, excludeMoreThenTHG);
 
     }
 }

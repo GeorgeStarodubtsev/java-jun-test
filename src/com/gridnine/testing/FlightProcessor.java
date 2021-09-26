@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public abstract class FlightProcessing {
+public abstract class FlightProcessor {
 
 
     public static void showInfo(Flight flight) {
