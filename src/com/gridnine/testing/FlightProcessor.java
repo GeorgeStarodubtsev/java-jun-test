@@ -11,6 +11,26 @@ public abstract class FlightProcessor {
                 System.out.println(flight.toString());
 
     }
+    public static boolean flightProcessor(Flight flight, FlightProcessorMeth... method){
+
+        boolean needfulFlight = true;
+        for (FlightProcessorMeth meth : method) {
+            switch (meth) {
+                case EPA:
+                    needfulFlight = FlightProcessor.excludePastArrival(flight);
+                    break;
+                case EDBA:
+                    needfulFlight = needfulFlight & FlightProcessor.excludeDepBeforeArr(flight);
+                    break;
+                case EMTT:
+                    needfulFlight = needfulFlight & FlightProcessor.excludeMoreThenTHG(flight);
+                    break;
+                default:
+                    break;
+                }
+            }
+        return needfulFlight;
+    }
 
 
     public static boolean excludePastArrival(Flight flight) {
@@ -37,7 +57,7 @@ public abstract class FlightProcessor {
             groundTime = groundTime.plus(Duration.between(flight.getSegments().get(i).getArrivalDate(),
                     flight.getSegments().get(i + 1).getDepartureDate()));
 
-            if(groundTime.compareTo(Duration.ofHours(2)) > -1){
+            if(groundTime.compareTo(Duration.ofSeconds(7200)) > -1){
                 return false;
             }
         }
