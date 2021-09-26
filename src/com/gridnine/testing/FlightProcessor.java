@@ -2,27 +2,26 @@ package com.gridnine.testing;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 
-public abstract class FlightProcessor {
+public class FlightProcessor {
 
 
     public static void showInfo(Flight flight) {
                 System.out.println(flight.toString());
 
     }
-    public static boolean flightProcessor(Flight flight, FlightProcessorMeth... method){
+    public static boolean flightFilter(Flight flight, FilterRule... method){
 
         boolean needfulFlight = true;
-        for (FlightProcessorMeth meth : method) {
+        for (FilterRule meth : method) {
             switch (meth) {
-                case EPA:
+                case EXCLUDE_PAST_ARRIVAL:
                     needfulFlight = FlightProcessor.excludePastArrival(flight);
                     break;
-                case EDBA:
+                case EXCLUDE_DEP_BEFORE_ARR:
                     needfulFlight = needfulFlight & FlightProcessor.excludeDepBeforeArr(flight);
                     break;
-                case EMTT:
+                case EXCLUDE_MORE_THEN_THG:
                     needfulFlight = needfulFlight & FlightProcessor.excludeMoreThenTHG(flight);
                     break;
                 default:
