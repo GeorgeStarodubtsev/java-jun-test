@@ -1,55 +1,50 @@
 package com.gridnine.testing;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FlightListProcessor {
 
-//    public List<Flight> flightFilteredList(List<Flight> flights, Set<FilterRule> methods){
-//        Set<FilterRule> met = methods;
-//        return flights.stream()
-//                .filter(flight -> {return FlightProcessor.flightFilter(flight, met ); })
-//                .collect(Collectors.toList());
-//    }
+    private final FlightProcessor flightProcessor = new FlightProcessor();
 
-    //variable-length arguments method
-    public static void printListWithFilter(List<Flight> flights, FilterRule... method) {
-        //EPA("excludePastArrival"),
-        //EDBA("excludeDepBeforeArr"),
-        //EMTT("excludeMoreThenTHG");
+    //List Rule arguments method
+    public List<Flight> processFlightList(List<Flight> flights, List<FilterRule> rules) {
 
-        boolean printFlight;
-
-        for (int i = 0; i < flights.size(); i++) {
-            Flight flight = flights.get(i);
-            printFlight = true;
-
-            for (FilterRule meth : method) {
-                switch (meth) {
-                    case EXCLUDE_PAST_ARRIVAL:
-                        printFlight = FlightProcessor.excludePastArrival(flight);
-                        break;
-                    case EXCLUDE_DEP_BEFORE_ARR:
-                        printFlight = printFlight & FlightProcessor.excludeDepBeforeArr(flight);
-                        break;
-                    case EXCLUDE_MORE_THEN_THG:
-                        printFlight = printFlight & FlightProcessor.excludeMoreThenTHG(flight);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            if (printFlight) {
-                System.out.println(flight.toString());
-            } else {
-                System.out.print("Delete Flight: ");
-                System.out.println(flight.toString());
-            }
+        if (rules.isEmpty() || rules.contains(null)) {
+            throw new IllegalArgumentException();
         }
+        if (rules.size() == 1) {
+            return filterByRule(flights, rules.get(0));
+        }
+        List<Flight> result = new ArrayList<>(flights);
+        for (int i = 0; i < rules.size(); i++) {
+            result = filterByRule(result, rules.get(i));
+        }
+        return result;
     }
 
-    //private FlightProcessor flightProcessor = new FlightProcessor();
+    public void printFlightList(List<Flight> flights) {
+        flights.forEach(flight -> System.out.println(flight.toString()));
+    }
+
+    private List<Flight> filterByRule(List<Flight> flights, FilterRule rule) {
+
+        if (rule.equals(FilterRule.EXCLUDE_NOTHING)) {
+            return flights;
+        }
+        List<Flight> result = new ArrayList<>();
+        if (rule.equals(FilterRule.EXCLUDE_DEP_BEFORE_ARR)) {
+            return flights.stream().filter(flight -> flightProcessor.excludeDepBeforeArr(flight)).collect(Collectors.toList());
+        }
+        if (rule.equals(FilterRule.EXCLUDE_PAST_ARRIVAL)) {
+            return flights.stream().filter(flight -> flightProcessor.excludePastArrival(flight)).collect(Collectors.toList());
+        }
+        if (rule.equals(FilterRule.EXCLUDE_MORE_THEN_THG)) {
+            return flights.stream().filter(flight -> flightProcessor.excludeMoreThenTHG(flight)).collect(Collectors.toList());
+        }
+        throw new UnsupportedOperationException("Unsupported filtering rule");
+    }
+
 
 }
