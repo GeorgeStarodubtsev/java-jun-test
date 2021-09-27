@@ -39,14 +39,9 @@ public class Main {
         List<Flight> flightsExcludeMoreThenTwoHoursGround = processor.processFlightList(flights, eMoreThenTwoHoursGround);
         processor.printFlightList(flightsExcludeMoreThenTwoHoursGround);
 
-
-        System.out.println("---------- flights With All Rule ----------");
-        List<Flight> flightsWithAllRule = processor.processFlightList(flights, excludeAll);
-        processor.printFlightList(flightsWithAllRule);
-
-
-
-
+//        System.out.println("---------- flights With All Rule ----------");
+//        List<Flight> flightsWithAllRule = processor.processFlightList(flights, excludeAll);
+//        processor.printFlightList(flightsWithAllRule);
 
     }
 }
